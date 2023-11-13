@@ -25,8 +25,36 @@ export const useAuthStore = defineStore({
                     localStorage.setItem('user', JSON.stringify(this.user));
 
                     // redirect to the previous page before sign in
-                    router.back();
+                    router.push({ name: "homepage" });
                 }
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        async addFavoriteStore(productId) {
+            try {
+                let isFavorited = false;
+                this.user.favoriteProducts.map((favProd) => {
+                    if (favProd === productId) {
+                        isFavorited = true;
+                    }
+                });
+                if (isFavorited === false) {
+                    this.user.favoriteProducts.push(productId);
+                    localStorage.setItem('user', JSON.stringify(this.user));
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        },
+        async removeFavoriteStore(productId) {
+            try {
+                this.user.favoriteProducts.map((favProd, index) => {
+                    if (favProd === productId) {
+                        this.user.favoriteProducts.splice(index, 1);
+                    }
+                });
+                localStorage.setItem('user', JSON.stringify(this.user));
             } catch (error) {
                 console.log(error);
             }

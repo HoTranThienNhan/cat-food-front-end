@@ -89,7 +89,7 @@ export const useCartStore = defineStore({
         },
         getCart(userId) {
             let userCart = null;
-            JSON.parse(localStorage.getItem('cart')).map((cart) => {
+            JSON.parse(localStorage.getItem('cart'))?.map((cart) => {
                 if (cart?.userId === userId) {
                     userCart = cart;
                 }
@@ -139,7 +139,6 @@ export const useCartStore = defineStore({
                 });
                 // store user cart in local storage
                 localStorage.setItem('cart', JSON.stringify(this.cart));
-                console.log(localStorage);
             } catch (error) {
                 console.log(error);
             }

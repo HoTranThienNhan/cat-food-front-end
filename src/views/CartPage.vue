@@ -95,7 +95,7 @@ const goToHomePage = () => {
 }
 const goToMenuPage = () => {
     router.push({ name: "menupage" });
-} 
+}
 const goToCheckOutPage = () => {
     router.push({ name: "checkoutpage" });
 }
@@ -113,7 +113,7 @@ const checkOut = () => {
 
 <template>
     <!-- {{ cart?.products }} -->
-    <a-breadcrumb style="margin-bottom: 20px;">
+    <a-breadcrumb style="margin-bottom: 20px; margin-top: 50px;">
         <a-breadcrumb-item>
             <span role="button" @click="goToHomePage">Trang Chủ</span>
         </a-breadcrumb-item>
@@ -129,82 +129,85 @@ const checkOut = () => {
                     cart?.products?.length - 1 : 0 }})</div>
             </a-col>
         </a-row>
-        <a-row v-if="cart?.products?.length > 1" justify="center">
+        <a-row v-if="cart?.products?.length > 1" justify="center" style="margin-bottom: 50px;">
             <a-col span="20">
-                <a-divider></a-divider>
-
-                <div v-for="(product, index) in cart?.products">
-                    <a-row v-if="index > 0" justify="space-evenly" align="middle">
-                        <a-col span="4">
-                            <a-image v-bind:src="`${product?.image}`" :width="110" :preview="false" />
-                        </a-col>
-                        <a-col span="7" :offset="1">
-                            <a-row justify="center">
-                                <a-col span="24">
-                                    <h5 style="">{{ product?.name }}</h5>
-                                </a-col>
-                                <a-col span="24">
-                                    <a-tag color="orange" style="font-size: 16px">{{ product?.type }}</a-tag>
-                                </a-col>
-                            </a-row>
-                        </a-col>
-                        <a-col span="4">
-                            <a-row>
-                                <a-col span="8">
-                                    <a-popconfirm v-if="product?.amount === 1" title="Bạn có muốn xóa sản phẩm này？"
-                                        @confirm="() => removeProduct(product?._id, user?._id)">
-                                        <template #icon><question-circle-outlined style="color: red" /></template>
-                                        <a-button type="link" @click="() => decreaseAmount(product)">
+                <div style="max-height: 355px; overflow: auto; padding-right: 20px; margin-bottom: 20px;">
+                    <a-divider style="border: 2px dashed rgb(180, 180, 180);"></a-divider>
+                    <div v-for="(product, index) in cart?.products">
+                        <a-row v-if="index > 0" justify="space-evenly" align="middle">
+                            <a-col span="4">
+                                <a-image v-bind:src="`${product?.image}`" :width="100" :height="100" :preview="false" />
+                            </a-col>
+                            <a-col span="7" :offset="1">
+                                <a-row justify="center">
+                                    <a-col span="24">
+                                        <h5 style="">{{ product?.name }}</h5>
+                                    </a-col>
+                                    <a-col span="24">
+                                        <a-tag color="orange" style="font-size: 16px">{{ product?.type }}</a-tag>
+                                    </a-col>
+                                </a-row>
+                            </a-col>
+                            <a-col span="4">
+                                <a-row>
+                                    <a-col span="8">
+                                        <a-popconfirm v-if="product?.amount === 1" title="Bạn có muốn xóa sản phẩm này？"
+                                            @confirm="() => removeProduct(product?._id, user?._id)">
+                                            <template #icon><question-circle-outlined style="color: red" /></template>
+                                            <a-button type="link" @click="() => decreaseAmount(product)">
+                                                <MinusOutlined style="font-size: 18px;" />
+                                            </a-button>
+                                        </a-popconfirm>
+                                        <a-button v-else type="link" @click="() => decreaseAmount(product)">
                                             <MinusOutlined style="font-size: 18px;" />
                                         </a-button>
-                                    </a-popconfirm>
-                                    <a-button v-else type="link" @click="() => decreaseAmount(product)">
-                                        <MinusOutlined style="font-size: 18px;" />
-                                    </a-button>
-                                </a-col>
-                                <a-col span="8">
-                                    <InputNumber :value="product?.amount" />
-                                </a-col>
-                                <a-col span="8">
-                                    <a-popconfirm v-if="product?.amount === 10" title="Tối đa 10 sản phẩm"
-                                        :showCancel="false">
-                                        <a-button type="link" @click="() => increaseAmount(product)">
+                                    </a-col>
+                                    <a-col span="8">
+                                        <InputNumber :value="product?.amount" />
+                                    </a-col>
+                                    <a-col span="8">
+                                        <a-popconfirm v-if="product?.amount === 10" title="Tối đa 10 sản phẩm"
+                                            :showCancel="false">
+                                            <a-button type="link" @click="() => increaseAmount(product)">
+                                                <PlusOutlined style="font-size: 18px;" />
+                                            </a-button>
+                                        </a-popconfirm>
+                                        <a-button v-else type="link" @click="() => increaseAmount(product)">
                                             <PlusOutlined style="font-size: 18px;" />
                                         </a-button>
-                                    </a-popconfirm>
-                                    <a-button v-else type="link" @click="() => increaseAmount(product)">
-                                        <PlusOutlined style="font-size: 18px;" />
-                                    </a-button>
-                                </a-col>
-                            </a-row>
+                                    </a-col>
+                                </a-row>
+                            </a-col>
+                            <a-col span="3" :offset="2" align="middle">
+                                <h6 style="margin-top: 6px">{{ product?.price?.toLocaleString() }} VNĐ</h6>
+                            </a-col>
+                            <a-col span="3" align="middle">
+                                <a-popconfirm title="Bạn chắc chắn xóa sản phẩm này？"
+                                    @confirm="() => removeProduct(product?._id, user?._id)">
+                                    <template #icon><question-circle-outlined style="color: red" /></template>
+                                    <CloseOutlined />
+                                </a-popconfirm>
+                            </a-col>
+                            <a-divider style="border: 2px dashed rgb(180, 180, 180);"></a-divider>
+                        </a-row>
+                    </div>
+                </div>
+                <div>
+                    <a-row justify="end" align="middle">
+                        <a-col>
+                            <h5>Tạm Tính:</h5>
                         </a-col>
-                        <a-col span="3" :offset="2" align="middle">
-                            <h6 style="margin-top: 6px">{{ product?.price?.toLocaleString() }} VNĐ</h6>
+                        <a-col :offset="1">
+                            <h4>{{ totalPrice?.toLocaleString() }} VNĐ</h4>
                         </a-col>
-                        <a-col span="3" align="middle">
-                            <a-popconfirm title="Bạn chắc chắn xóa sản phẩm này？"
-                                @confirm="() => removeProduct(product?._id, user?._id)">
-                                <template #icon><question-circle-outlined style="color: red" /></template>
-                                <CloseOutlined />
-                            </a-popconfirm>
+                    </a-row>
+                    <a-row justify="end">
+                        <a-col span="6">
+                            <a-button type="primary" @click="checkOut"
+                                style="width: 100%; height: 50px; border-radius: 25px;">Thanh Toán</a-button>
                         </a-col>
-                        <a-divider></a-divider>
                     </a-row>
                 </div>
-                <a-row justify="end" align="middle">
-                    <a-col>
-                        <h5>Tạm Tính:</h5>
-                    </a-col>
-                    <a-col :offset="1">
-                        <h4>{{ totalPrice?.toLocaleString() }} VNĐ</h4>
-                    </a-col>
-                </a-row>
-                <a-row justify="end">
-                    <a-col span="6">
-                        <a-button type="primary" @click="checkOut"
-                            style="width: 100%; height: 50px; border-radius: 25px;">Thanh Toán</a-button>
-                    </a-col>
-                </a-row>
             </a-col>
         </a-row>
         <a-result v-else title="Hình như chưa có sản phẩm nào trong giỏ hàng">

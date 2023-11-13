@@ -12,7 +12,7 @@ const addedProduct = reactive({
     name: '',
     type: '',
     price: '',
-    quality: '',
+    quantity: '',
     description: '',
     image: '',
 });
@@ -66,8 +66,8 @@ const fetchAllProducts = async () => {
         },
         {
             title: 'Số Lượng Tồn Kho',
-            dataIndex: 'quality',
-            sorter: (a, b) => a.quality - b.quality
+            dataIndex: 'quantity',
+            sorter: (a, b) => a.quantity - b.quantity
         },
         {
             title: 'Đã Bán',
@@ -130,7 +130,7 @@ const handleAddNewProduct = async () => {
     addedProduct.name = '';
     addedProduct.type = '';
     addedProduct.price = '';
-    addedProduct.quality = '';
+    addedProduct.quantity = '';
     addedProduct.description = '';
     addedProduct.image = '';
     fileImageList.value = [];
@@ -147,7 +147,7 @@ const updatedProduct = reactive({
     name: '',
     type: '',
     price: '',
-    quality: '',
+    quantity: '',
     description: '',
     image: '',
 });
@@ -160,7 +160,7 @@ const handleEditProduct = async (key) => {
     updatedProduct.name = thisProduct.name;
     updatedProduct.type = thisProduct.type;
     updatedProduct.price = thisProduct.price;
-    updatedProduct.quality = thisProduct.quality;
+    updatedProduct.quantity = thisProduct.quantity;
     updatedProduct.description = thisProduct.description;
     updatedProduct.image = thisProduct.image;
     oldUpdatedImage.value = thisProduct.image;
@@ -255,9 +255,9 @@ const showModalAddProduct = () => {
                             class="add-product-price-input" min="0" />
                     </a-form-item>
 
-                    <a-form-item label="Số Lượng Tồn Kho" name="quality"
+                    <a-form-item label="Số Lượng Tồn Kho" name="quantity"
                         :rules="[{ required: true, message: 'Số lượng tồn kho không được để trống.' }]">
-                        <a-input-number v-model:value="addedProduct.quality" style="width: 100%;" min="0" />
+                        <a-input-number v-model:value="addedProduct.quantity" style="width: 100%;" min="0" />
                     </a-form-item>
 
                     <a-form-item label="Mô Tả Sản Phẩm" name="description"
@@ -313,9 +313,9 @@ const showModalAddProduct = () => {
                     class="add-product-price-input" min="0" />
             </a-form-item>
 
-            <a-form-item label="Số Lượng Tồn Kho" name="quality"
+            <a-form-item label="Số Lượng Tồn Kho" name="quantity"
                 :rules="[{ required: true, message: 'Số lượng tồn kho không được để trống.' }]">
-                <a-input-number v-model:value="updatedProduct.quality" style="width: 100%;" min="0" />
+                <a-input-number v-model:value="updatedProduct.quantity" style="width: 100%;" min="0" />
             </a-form-item>
 
             <a-form-item label="Mô Tả Sản Phẩm" name="description"

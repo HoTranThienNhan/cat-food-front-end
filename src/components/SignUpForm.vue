@@ -54,7 +54,7 @@ const goToSignInPage = () => {
             <a-button type="primary" html-type="submit" style="width: 100%;">Đăng Ký</a-button>
         </a-form-item>
 
-        <a-row justify="start" style="margin-bottom: 30px;">
+        <a-row justify="start" style="margin-bottom: 20px;">
             <a-col offset="6">
                 Đã có tài khoản? <span role="button" @click="goToSignInPage" style="color: #4e89ff">Đăng nhập</span>
             </a-col>

@@ -36,8 +36,13 @@ const signin = async (data) => {
 </script>
 
 <template>
-    <a-row justify="center">
-        <a-col span="22" style="width: 100%; background-color: #fff; border: 1px solid #9f9f9f; border-radius: 15px;">
+    <a-row justify="center" style="margin-top: 80px;">
+        <a-col span="22" style="
+        width: 100%; 
+        background-color: #fff; 
+        border: 1px solid #9f9f9f; 
+        border-radius: 15px; 
+        box-shadow: 0px 1px 3px 3px #c8c8c8;">
             <a-row justify="center">
                 <a-col span="10">
                     <a-image style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;"

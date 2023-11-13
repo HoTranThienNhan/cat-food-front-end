@@ -3,12 +3,15 @@ import HomePage from "@/views/HomePage.vue";
 import SignInPage from "@/views/SignInPage.vue";
 import SignUpPage from "@/views/SignUpPage.vue";
 import MenuPage from "@/views/MenuPage.vue";
+import SearchProduct from "@/views/SearchProduct.vue";
 import ProductPage from "@/views/ProductPage.vue";
 import CartPage from "@/views/CartPage.vue";
 import CheckOutPage from "@/views/CheckOutPage.vue";
 import OrderPage from "@/views/OrderPage.vue";
 import OrderSuccessPage from "@/views/OrderSuccessPage.vue";
 import ProductManagementPage from "@/views/ProductManagementPage.vue";
+import ReviewPage from "@/views/ReviewPage.vue";
+import FavoritePage from "@/views/FavoritePage.vue";
 
 const routes = [
     {
@@ -27,9 +30,15 @@ const routes = [
         component: SignUpPage,
     },
     {
-        path: "/menu",
+        path: "/menu", 
         name: "menupage",
         component: MenuPage,
+    },
+    {
+        path: "/searchproduct/:name?", // nullable props
+        name: "searchproductpage",
+        component: SearchProduct,
+        props: true // Truyền các biến trong $route.params vào làm props
     },
     {
         path: "/order",
@@ -57,6 +66,17 @@ const routes = [
         path: "/checkout",
         name: "checkoutpage",
         component: CheckOutPage,
+        props: true // Truyền các biến trong $route.params vào làm props
+    },
+    {
+        path: "/favorite",
+        name: "favoritepage",
+        component: FavoritePage,
+    },
+    {
+        path: "/review/:orderId&:productId",
+        name: "reviewpage",
+        component: ReviewPage,
         props: true // Truyền các biến trong $route.params vào làm props
     },
     {

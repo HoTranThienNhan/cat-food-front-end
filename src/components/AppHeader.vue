@@ -1,6 +1,6 @@
 <script setup>
 import { ref, reactive, computed, toRefs, onMounted, watch } from 'vue';
-import { HeartOutlined, ShoppingCartOutlined, DownOutlined } from '@ant-design/icons-vue';
+import { HeartOutlined, ShoppingCartOutlined, DownOutlined, SearchOutlined } from '@ant-design/icons-vue';
 import { router } from '@/router';
 import { useAuthStore } from '@/stores/auth.store';
 import { useCartStore } from '@/stores/cart.store';
@@ -23,10 +23,17 @@ watch(
     { deep: true }
 );
 
-let thisUser = {};
-onMounted(async () => {
-    thisUser = await UserService.getUserDetails(user?.value?._id);
-});
+const searchProductValue = ref('');
+const handleSearchProduct = () => {
+    router.replace({
+        name: "searchproductpage",
+        params: {
+            name: searchProductValue.value
+        },
+    });
+    searchProductValue.value = '';
+}
+
 
 // methods
 const goToSignIn = () => {
@@ -40,6 +47,9 @@ const goToMenuPage = () => {
 }
 const goToCartPage = () => {
     router.push({ name: "cartpage" });
+}
+const goToFavoritePage = () => {
+    router.push({ name: "favoritepage" });
 }
 const goToOrderPage = () => {
     router.push({ name: "orderpage" });
@@ -60,7 +70,9 @@ const signout = () => {
 <template>
     <a-row class="header-navbar-wrapper" align="middle">
         <a-col :span="4" offset="2">
-            <div>CATFOOD</div>
+            <div>
+                <a-image height="70px" :preview="false" src="/src/assets/cat-food-logo.png" />
+            </div>
         </a-col>
         <a-col :span="8">
             <a-row justify="space-around" class="navigate-wapper">
@@ -78,7 +90,7 @@ const signout = () => {
 
                 <a-col>
                     <span role="button" @click="goToHomePage">
-                        Về Chúng Tôi
+                        Giới Thiệu
                     </span>
                 </a-col>
 
@@ -92,23 +104,28 @@ const signout = () => {
 
         <a-col :span="8" offset="2">
             <a-row align="middle">
-                <a-col :span="7">
+                <a-col :span="8">
                     <a-form>
-                        <a-input placeholder="Tìm kiếm" />
+                        <a-input-group compact>
+                            <a-input placeholder="Tìm kiếm" style="width: 130px; height: 30px" v-model:value="searchProductValue" />
+                            <a-button style="width: 28px; height: 30px; padding: 0px 0px 10px 0px;" @click="handleSearchProduct">
+                                <SearchOutlined />
+                            </a-button>
+                        </a-input-group>
                     </a-form>
                 </a-col>
 
-                <a-col :span="6" :offset="2">
-                    <a-button type="primary" v-if="!user" @click="goToSignIn">Đăng Nhập</a-button>
+                <a-col :span="6" :offset="1">
+                    <span role="button" style="font-weight: 600;" v-if="!user" @click="goToSignIn">Đăng Nhập</span>
                     <a-dropdown v-if="user" :trigger="['click']" arrow>
-                        <span role="button" class="ant-dropdown-link" @click.prevent>
+                        <span role="button" style="font-weight: 600;" class="ant-dropdown-link" @click.prevent>
                             {{ user?.name ? user?.name : user?.email }}
                         </span>
                         <template #overlay>
                             <a-menu>
-                                <a-menu-item v-if="thisUser?.isAdmin === true" role="button" @click="goToProductManagementPage">
+                                <!-- <a-menu-item v-if="user?.isAdmin === true" role="button" @click="goToProductManagementPage">
                                     <span>Quản Lý Hệ Thống</span>
-                                </a-menu-item>
+                                </a-menu-item> -->
                                 <a-menu-item role="button" @click="goToOrderPage">
                                     <span>Đơn Hàng Của Tôi</span>
                                 </a-menu-item>
@@ -123,13 +140,14 @@ const signout = () => {
                 <a-col :span="6">
                     <a-row align="middle">
                         <a-col>
-                            <a-badge count="0" show-zero>
-                                <HeartOutlined :style="{ fontSize: '24px' }" />
+                            <a-badge :count="user?.favoriteProducts?.length > 0 ? user?.favoriteProducts?.length : 0" show-zero>
+                                <HeartOutlined :style="{ fontSize: '24px', color: '#fff' }" :role="button" @click="goToFavoritePage" />
                             </a-badge>
                         </a-col>
                         <a-col :offset="4">
-                            <a-badge :count="cart?.products?.length-1 > 0 ? cart?.products?.length-1 : 0" show-zero>
-                                <ShoppingCartOutlined :style="{ fontSize: '24px' }" :role="button" @click="goToCartPage" />
+                            <a-badge :count="cart?.products?.length - 1 > 0 ? cart?.products?.length - 1 : 0" show-zero>
+                                <ShoppingCartOutlined :style="{ fontSize: '24px', color: '#fff' }" :role="button"
+                                    @click="goToCartPage" />
                             </a-badge>
                         </a-col>
                     </a-row>
@@ -143,7 +161,12 @@ const signout = () => {
 
 <style>
 .header-navbar-wrapper {
-    margin: 20px 0px;
+    background-color: #211616cc;
+    z-index: 10;
+    position: fixed;
+    width: 100%;
+    color: #fff;
+    top: 0px;
 }
 
 .navigate-wapper {

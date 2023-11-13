@@ -2,6 +2,8 @@
 import { useCartStore } from '@/stores/cart.store';
 import { useAuthStore } from '@/stores/auth.store';
 import ProductService from "@/services/product.service";
+import ReviewService from "@/services/review.service";
+import UserService from "@/services/user.service";
 import { ref, toRefs, onMounted, watch, reactive } from 'vue';
 import { router } from '@/router';
 import { useRoute } from 'vue-router';
@@ -35,8 +37,36 @@ const getProductDetails = async (id) => {
         });
     }
 }
+const averageStar = ref(0);
+const countRating = ref(0);
+let reviewProduct = ref([]);
+const getReviewsByProduct = async (id) => {
+    try {
+        const data = await ReviewService.getReviewsByProduct(id);
+
+        let totalStar = 0;
+        data?.map(async (review, index) => {
+            const user = await UserService.getUserDetails(review.userId);
+            review = {
+                ...review,
+                'userName': user?.name,
+            };
+            totalStar = totalStar + averageStar.value + review.star;
+            if (index + 1 === data?.length) {
+                averageStar.value = totalStar / data?.length;
+            }
+            reviewProduct.value.push(review);
+        });
+        if (data?.length > 0) {
+            countRating.value = data?.length;
+        }
+    } catch (e) {
+        console.log(e);
+    }
+}
 onMounted(() => {
     getProductDetails(productId);
+    getReviewsByProduct(productId);
 });
 
 
@@ -76,7 +106,7 @@ const goToMenuPage = () => {
 </script>
 
 <template>
-    <a-breadcrumb style="margin-bottom: 40px;">
+    <a-breadcrumb style="margin-bottom: 40px; margin-top: 50px;">
         <a-breadcrumb-item>
             <span role="button" @click="goToHomePage">Trang Chủ</span>
         </a-breadcrumb-item>
@@ -99,8 +129,9 @@ const goToMenuPage = () => {
                         <h3 style="text-transform: uppercase;">{{ product?.name }}</h3>
                     </a-col>
                     <a-col span="24" style="margin-bottom: 22px;">
-                        <a-rate :value="4" disabled />
-                        <span style="font-size: 18px"> 4.7 (10 đánh giá)</span>
+                        <a-rate :value="averageStar" disabled />
+                        <span style="font-size: 18px; margin-left: 7px;"> {{ averageStar }}<span
+                                style="margin-left: 7px">({{ countRating }} đánh giá)</span></span>
                     </a-col>
                     <a-col span="24" style="margin-bottom: 20px;">
                         <a-tag color="orange" style="font-size: 16px">Loại: {{ product?.type }}</a-tag>
@@ -127,6 +158,30 @@ const goToMenuPage = () => {
             </a-col>
         </a-row>
     </a-spin>
+
+    <a-row style="margin-top: 60px" justify="center">
+        <a-col style="margin-bottom: 10px; font-size: 24px; font-weight: 600;">
+            Đánh Giá
+        </a-col>
+    </a-row>
+    <a-row v-if="reviewProduct?.length > 0" v-for="(review, index) in reviewProduct" style="margin-bottom: 15px">
+        <a-col span="16" offset="10" align="start" style="margin-bottom: 7px">
+            <span style="font-weight: 600; font-size: 18px;">
+                {{ review?.userName }}
+            </span>
+            <span style="margin-left: 50px">
+                <a-rate :value="review?.star" disabled />
+            </span>
+        </a-col>
+        <a-col span="16" offset="10" align="start">
+            {{ review?.description }}
+        </a-col>
+    </a-row>
+    <a-row v-else>
+        <a-col span="24" align="middle" style="margin-bottom: 7px">
+            Chưa có đánh giá nào.
+        </a-col>
+    </a-row>
 </template>
 
 <style></style>

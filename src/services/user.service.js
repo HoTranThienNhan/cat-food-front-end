@@ -25,6 +25,12 @@ class UserService {
     async deleteUser(id) {
         return (await this.api.delete(`/deleteUser/${id}`)).data;
     }
+    async addFavorite(userId, productId) {
+        return (await this.api.put(`/addFavorite/${userId}&${productId}`)).data;
+    }
+    async removeFavorite(userId, productId) {
+        return (await this.api.put(`/removeFavorite/${userId}&${productId}`)).data;
+    }
 }
 
 export default new UserService();

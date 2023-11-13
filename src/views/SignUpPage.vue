@@ -27,18 +27,23 @@ const signup = async (data) => {
 </script>
 
 <template>
-    <a-row justify="center">
-        <a-col span="22" style="width: 100%; background-color: #fff; border: 1px solid #9f9f9f; border-radius: 15px;">
+    <a-row justify="center" style="margin-top: 80px;">
+        <a-col span="22" style="
+        width: 100%; 
+        background-color: #fff; 
+        border: 1px solid #9f9f9f;
+         border-radius: 15px;
+         box-shadow: 0px 1px 3px 3px #c8c8c8;">
             <a-row justify="center">
                 <a-col span="10">
                     <a-image style="border-top-left-radius: 15px; border-bottom-left-radius: 15px;"
                         src="/src/assets/cat-food-banner-auth.png" :preview="false" />
                 </a-col>
-                <a-col span="14" style="padding: 30px;">
+                <a-col span="14" style="padding: 20px 20px 0px 20px;">
                     <a-row justify="center">
-                        <div style="font-weight: bold; font-size: 24px; margin-top: 20px;">ĐĂNG KÝ</div>
+                        <div style="font-weight: bold; font-size: 24px; margin-top: 0px;">ĐĂNG KÝ</div>
                     </a-row>
-                    <a-row justify="center" style=" margin: 20px 0px 50px 0px;">
+                    <a-row justify="center" style=" margin: 0px 0px 50px 0px;">
                         <div>Đăng ký tài khoản với MEOWIE</div>
                     </a-row>
                     <a-row justify="center">
