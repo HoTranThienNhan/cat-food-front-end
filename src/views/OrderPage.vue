@@ -5,7 +5,7 @@ import { ref, onMounted } from 'vue';
 import { router } from '@/router';
 import ProductCard from "@/components/ProductCard.vue";
 import { message } from 'ant-design-vue';
-import { ExpandAltOutlined, ShrinkOutlined, VerticalAlignTopOutlined, VerticalAlignBottomOutlined } from '@ant-design/icons-vue';
+import { ExpandAltOutlined, ShrinkOutlined, SmileTwoTone } from '@ant-design/icons-vue';
 
 const authStore = useAuthStore();
 const user = authStore?.user;
@@ -39,7 +39,6 @@ const cancelOrder = async (order) => {
 
 // review order
 const reviewProduct = async (orderId, productId) => {
-    console.log(orderId, productId);
     router.replace({
         name: "reviewpage",
         params: {
@@ -114,34 +113,28 @@ const goToHomePage = () => {
                 <div style="font-weight: bold; font-size: 28px;">ĐƠN HÀNG CỦA TÔI</div>
             </a-col>
         </a-row>
-        <a-row>
+        <a-row style="margin-bottom: 50px;">
             <a-col span="24">
                 <a-row style="margin-bottom: 30px;">
                     <a-dropdown>
                         <template #overlay>
                             <a-menu @click="handleMenuClick">
                                 <a-menu-item key="1">
-                                    <UserOutlined />
                                     Tất Cả
                                 </a-menu-item>
                                 <a-menu-item key="2">
-                                    <UserOutlined />
                                     Chờ Xác Nhận
                                 </a-menu-item>
                                 <a-menu-item key="3">
-                                    <UserOutlined />
                                     Chờ Lấy Hàng
                                 </a-menu-item>
                                 <a-menu-item key="4">
-                                    <UserOutlined />
                                     Đang Giao
                                 </a-menu-item>
                                 <a-menu-item key="5">
-                                    <UserOutlined />
                                     Đã Giao
                                 </a-menu-item>
                                 <a-menu-item key="6">
-                                    <UserOutlined />
                                     Đã Hủy
                                 </a-menu-item>
                             </a-menu>
@@ -234,11 +227,12 @@ const goToHomePage = () => {
                                             </div>
                                         </a-col>
                                         <a-col span="3">
-                                            <a-button v-if="order?.status === 'Đã Giao' && product?.isReviewed === false" type="primary"
-                                                @click="() => reviewProduct(order?._id, product?._id)">
+                                            <a-button v-if="order?.status === 'Đã Giao' && product?.isReviewed === false"
+                                                type="primary" @click="() => reviewProduct(order?._id, product?._id)">
                                                 Đánh Giá
                                             </a-button>
-                                            <a-button v-if="order?.status === 'Đã Giao' && product?.isReviewed === true" disabled>
+                                            <a-button v-if="order?.status === 'Đã Giao' && product?.isReviewed === true"
+                                                disabled>
                                                 Đã Đánh Giá
                                             </a-button>
                                         </a-col>
@@ -248,6 +242,11 @@ const goToHomePage = () => {
                         </a-card>
                     </a-col>
                 </a-row>
+                <a-result v-if="orders?.length === 0" title="Hình như chưa có đơn hàng nào">
+                    <template #icon>
+                        <SmileTwoTone />
+                    </template>
+                </a-result>
             </a-col>
         </a-row>
     </a-spin>

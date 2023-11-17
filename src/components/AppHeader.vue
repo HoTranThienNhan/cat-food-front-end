@@ -123,9 +123,6 @@ const signout = () => {
                         </span>
                         <template #overlay>
                             <a-menu>
-                                <!-- <a-menu-item v-if="user?.isAdmin === true" role="button" @click="goToProductManagementPage">
-                                    <span>Quản Lý Hệ Thống</span>
-                                </a-menu-item> -->
                                 <a-menu-item role="button" @click="goToOrderPage">
                                     <span>Đơn Hàng Của Tôi</span>
                                 </a-menu-item>

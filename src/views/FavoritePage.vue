@@ -5,7 +5,7 @@ import UserService from "@/services/user.service";
 import { ref, onMounted } from 'vue';
 import { router } from '@/router';
 import ProductCard from "@/components/ProductCard.vue";
-import { HeartOutlined, HeartFilled } from '@ant-design/icons-vue';
+import { HeartOutlined, HeartFilled, SmileTwoTone } from '@ant-design/icons-vue';
 import { message } from 'ant-design-vue';
 
 const authStore = useAuthStore();
@@ -64,6 +64,9 @@ const goToProductDetailsPage = (productId) => {
         params: { id: productId }
     });
 }
+const goToMenuPage = () => {
+    router.push({ name: "menupage" });
+}
 
 </script>
 
@@ -78,16 +81,15 @@ const goToProductDetailsPage = (productId) => {
     </a-breadcrumb>
 
     <a-spin :spinning="loading">
-        <a-row justify="center" style="margin-bottom: 40px;">
+        <a-row justify="center">
             <a-col class="type-filter">
                 <span style="font-size: 28px; font-weight: bold">SẢN PHẨM YÊU THÍCH</span>
             </a-col>
         </a-row>
-        <a-row justify="center">
+        <a-row v-if="user?.favoriteProducts?.length > 0" justify="center" style="margin-top: 40px;">
             <a-col span="20" :offset="2">
                 <a-row justify="space-evenly">
                     <a-col v-for="(product, index) in products" style="margin: 0px 30px 30px 0px">
-                        <!-- <ProductCard :product="product" @click="() => goToProductDetailsPage(product?._id)" /> -->
                         <a-row justify="space-evenly">
                             <a-col span="7">
                                 <a-card v-if="product?.isFavorite" hoverable style="width: 280px; height: 360px"
@@ -124,6 +126,14 @@ const goToProductDetailsPage = (productId) => {
                 </a-row>
             </a-col>
         </a-row>
+        <a-result v-if="user?.favoriteProducts?.length === 0" title="Hình như chưa có sản phẩm yêu thích nào">
+            <template #icon>
+                <SmileTwoTone />
+            </template>
+            <template #extra>
+                <a-button type="primary" @click="goToMenuPage">Đến Menu</a-button>
+            </template>
+        </a-result>
     </a-spin>
     <!-- </div> -->
 </template>

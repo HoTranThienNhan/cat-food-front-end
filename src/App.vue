@@ -2,6 +2,7 @@
 import { ref, watch, reactive, computed } from 'vue';
 
 import AppHeader from "@/components/AppHeader.vue";
+import AppFooter from '@/components/AppFooter.vue';
 </script>
 
 
@@ -14,6 +15,8 @@ import AppHeader from "@/components/AppHeader.vue";
         <router-view />
       </a-col>
     </a-row>
+
+    <AppFooter />
   </div>
 </template>
 

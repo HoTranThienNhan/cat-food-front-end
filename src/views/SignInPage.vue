@@ -53,7 +53,7 @@ const signin = async (data) => {
                         <div style="font-weight: bold; font-size: 24px; margin-top: 50px;">ĐĂNG NHẬP</div>
                     </a-row>
                     <a-row justify="center" style=" margin: 20px 0px 50px 0px;">
-                        <div>Chào mừng bạn đến với MEOWIE</div>
+                        <div>Chào mừng bạn đến với MEOW FOODIE</div>
                     </a-row>
                     <a-row justify="center">
                         <a-col span="16">

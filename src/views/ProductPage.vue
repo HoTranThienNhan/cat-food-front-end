@@ -160,12 +160,12 @@ const goToMenuPage = () => {
     </a-spin>
 
     <a-row style="margin-top: 60px" justify="center">
-        <a-col style="margin-bottom: 10px; font-size: 24px; font-weight: 600;">
-            Đánh Giá
+        <a-col span="24" style="margin-bottom: 10px; font-weight: 600;">
+            <a-divider style="border-color: rgb(174, 174, 174); font-size: 24px;">Đánh Giá</a-divider>
         </a-col>
     </a-row>
     <a-row v-if="reviewProduct?.length > 0" v-for="(review, index) in reviewProduct" style="margin-bottom: 15px">
-        <a-col span="16" offset="10" align="start" style="margin-bottom: 7px">
+        <a-col span="16" offset="9" align="start" style="margin-bottom: 7px">
             <span style="font-weight: 600; font-size: 18px;">
                 {{ review?.userName }}
             </span>
@@ -173,8 +173,15 @@ const goToMenuPage = () => {
                 <a-rate :value="review?.star" disabled />
             </span>
         </a-col>
-        <a-col span="16" offset="10" align="start">
+        <a-col span="16" offset="9" align="start">
             {{ review?.description }}
+        </a-col>
+        <a-col span="16" offset="9" align="start" style="margin-top: 10px;">
+            <a-row>
+                <a-col v-for="(image, index) in review?.images" span="3">
+                    <a-image :src="image" :width="80" style="border: 1px solid #a7a7a7; border-radius: 15px; padding: 5px;" />
+                </a-col>
+            </a-row>
         </a-col>
     </a-row>
     <a-row v-else>
