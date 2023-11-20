@@ -31,6 +31,19 @@ export const useAuthStore = defineStore({
                 console.log(error);
             }
         },
+        async updateUserProfile(data) {
+            try {
+                const userEmail = JSON.parse(JSON.stringify(data))?.email;
+                const userData = await UserService.getUserDetailsByEmail(userEmail);
+                // update pinia state
+                this.user = userData;
+
+                // store user details in local storage to keep user logged in between page refreshes
+                localStorage.setItem('user', JSON.stringify(this.user));
+            } catch (error) {
+                console.log(error);
+            }
+        },
         async addFavoriteStore(productId) {
             try {
                 let isFavorited = false;

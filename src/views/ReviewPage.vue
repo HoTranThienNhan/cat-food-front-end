@@ -80,12 +80,7 @@ const uploadImageReview = async (imageFile) => {
     const file = imageFile?.file;
     if (!file.url && !file.preview) {
         file.preview = await getBase64(file.originFileObj);
-        // reviewedProduct.images = file.preview;
     }
-
-    // if (fileImageList.value.length === 0) {
-    //     addedProduct.image = '';
-    // }
 }
 
 

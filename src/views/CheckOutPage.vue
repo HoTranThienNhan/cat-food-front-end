@@ -90,7 +90,7 @@ const goToCartPage = () => {
 
 <template>
     <!-- {{ cart?.products }} -->
-    <a-breadcrumb style="margin-bottom: 20px;">
+    <a-breadcrumb style="margin-bottom: 20px; margin-top: 50px;">
         <a-breadcrumb-item>
             <span role="button" @click="goToHomePage">Trang Chủ</span>
         </a-breadcrumb-item>

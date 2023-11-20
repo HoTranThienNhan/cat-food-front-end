@@ -14,7 +14,7 @@ const goToMenuPage = () => {
 </script>
 
 <template>
-    <a-breadcrumb style="margin-bottom: 40px;">
+    <a-breadcrumb style="margin-bottom: 40px; margin-top: 50px;">
         <a-breadcrumb-item>
             <span role="button" @click="goToHomePage">Trang Chủ</span>
         </a-breadcrumb-item>

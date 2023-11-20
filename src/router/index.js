@@ -9,9 +9,11 @@ import CartPage from "@/views/CartPage.vue";
 import CheckOutPage from "@/views/CheckOutPage.vue";
 import OrderPage from "@/views/OrderPage.vue";
 import OrderSuccessPage from "@/views/OrderSuccessPage.vue";
-import ProductManagementPage from "@/views/ProductManagementPage.vue";
 import ReviewPage from "@/views/ReviewPage.vue";
 import FavoritePage from "@/views/FavoritePage.vue";
+import EditProfilePage from "@/views/EditProfilePage.vue";
+import ContactPage from "@/views/ContactPage.vue";
+import AboutPage from "@/views/AboutPage.vue";
 
 const routes = [
     {
@@ -80,9 +82,19 @@ const routes = [
         props: true // Truyền các biến trong $route.params vào làm props
     },
     {
-        path: "/admin/management/product",
-        name: "productmanagementpage",
-        component: ProductManagementPage,
+        path: "/editprofile",
+        name: "editprofilepage",
+        component: EditProfilePage,
+    },
+    {
+        path: "/contact",
+        name: "contactpage",
+        component: ContactPage,
+    },
+    {
+        path: "/about",
+        name: "aboutpage",
+        component: AboutPage,
     },
     {
         path: "/:pathMatch(.*)*",

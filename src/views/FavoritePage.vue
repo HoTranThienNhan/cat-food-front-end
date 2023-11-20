@@ -22,7 +22,7 @@ const fetchData = async () => {
     try {
         loading.value = true;
         products.value = await ProductService.getAllProducts();
-
+        
         // add isFavorite field to products array
         const thisUser = await UserService.getUserDetails(user?._id);
         products.value.map((product) => {
@@ -87,12 +87,12 @@ const goToMenuPage = () => {
             </a-col>
         </a-row>
         <a-row v-if="user?.favoriteProducts?.length > 0" justify="center" style="margin-top: 40px;">
-            <a-col span="20" :offset="2">
+            <a-col span="20" :offset="4">
                 <a-row justify="space-evenly">
-                    <a-col v-for="(product, index) in products" style="margin: 0px 30px 30px 0px">
+                    <a-col v-for="(product, index) in products">
                         <a-row justify="space-evenly">
                             <a-col span="7">
-                                <a-card v-if="product?.isFavorite" hoverable style="width: 280px; height: 360px"
+                                <a-card v-if="product?.isFavorite" hoverable style="width: 280px; height: 360px; margin: 0px 30px 30px 0px"
                                     class="card-product" @click="() => goToProductDetailsPage(product?._id)">
                                     <a-row style="position: absolute; right: 30px;">
                                         <HeartFilled v-if="product?.isFavorite"

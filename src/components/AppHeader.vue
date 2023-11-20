@@ -39,11 +39,20 @@ const handleSearchProduct = () => {
 const goToSignIn = () => {
     router.push({ name: "signinpage" });
 }
+const goToSignUp = () => {
+    router.push({ name: "signuppage" });
+}
 const goToHomePage = () => {
     router.push({ name: "homepage" });
 }
 const goToMenuPage = () => {
     router.push({ name: "menupage" });
+}
+const goToAboutPage = () => {
+    router.push({ name: "aboutpage" });
+}
+const goToContactPage = () => {
+    router.push({ name: "contactpage" });
 }
 const goToCartPage = () => {
     router.push({ name: "cartpage" });
@@ -54,8 +63,8 @@ const goToFavoritePage = () => {
 const goToOrderPage = () => {
     router.push({ name: "orderpage" });
 }
-const goToProductManagementPage = () => {
-    router.push({ name: "productmanagementpage" });
+const goToEditProfilePage = () => {
+    router.push({ name: "editprofilepage" });
 }
 const signout = () => {
     try {
@@ -89,13 +98,13 @@ const signout = () => {
                 </a-col>
 
                 <a-col>
-                    <span role="button" @click="goToHomePage">
+                    <span role="button" @click="goToAboutPage">
                         Giới Thiệu
                     </span>
                 </a-col>
 
                 <a-col>
-                    <span role="button" @click="goToHomePage">
+                    <span role="button" @click="goToContactPage">
                         Liên Hệ
                     </span>
                 </a-col>
@@ -115,14 +124,18 @@ const signout = () => {
                     </a-form>
                 </a-col>
 
-                <a-col :span="6" :offset="1">
-                    <span role="button" style="font-weight: 600;" v-if="!user" @click="goToSignIn">Đăng Nhập</span>
+                <a-col :span="7" :offset="1">
+                    <span role="button" style="font-weight: 600;" v-if="!user" @click="goToSignIn">Đăng Nhập / </span>
+                    <span role="button" style="font-weight: 600;" v-if="!user" @click="goToSignUp">Đăng Ký</span>
                     <a-dropdown v-if="user" :trigger="['click']" arrow>
                         <span role="button" style="font-weight: 600;" class="ant-dropdown-link" @click.prevent>
                             {{ user?.name ? user?.name : user?.email }}
                         </span>
                         <template #overlay>
                             <a-menu>
+                                <a-menu-item role="button" @click="goToEditProfilePage">
+                                    <span>Thông Tin Người Dùng</span>
+                                </a-menu-item>
                                 <a-menu-item role="button" @click="goToOrderPage">
                                     <span>Đơn Hàng Của Tôi</span>
                                 </a-menu-item>

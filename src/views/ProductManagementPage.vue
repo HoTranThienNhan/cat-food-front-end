@@ -262,7 +262,7 @@ const showModalAddProduct = () => {
 
                     <a-form-item label="Mô Tả Sản Phẩm" name="description"
                         :rules="[{ required: true, message: 'Mô tả không được để trống.' }]">
-                        <a-textarea v-model:value="addedProduct.description" placeholder="Basic usage" :rows="3" />
+                        <a-textarea v-model:value="addedProduct.description" :rows="3" />
                     </a-form-item>
 
                     <div style="margin-bottom: 10px;">
@@ -320,7 +320,7 @@ const showModalAddProduct = () => {
 
             <a-form-item label="Mô Tả Sản Phẩm" name="description"
                 :rules="[{ required: true, message: 'Mô tả không được để trống.' }]">
-                <a-textarea v-model:value="updatedProduct.description" placeholder="Basic usage" :rows="3" />
+                <a-textarea v-model:value="updatedProduct.description" :rows="3" />
             </a-form-item>
 
             <div style="margin-bottom: 10px;">
