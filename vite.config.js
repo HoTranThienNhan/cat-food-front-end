@@ -27,7 +27,7 @@ export default defineConfig({
     port: 3001,
     proxy: {
       "/api": {
-        target: "https://cat-food-back-end.onrender.com/",
+        target: process.env.NODE_ENV || "https://cat-food-back-end.onrender.com/",
         changeOrigin: true,
       },
     }
