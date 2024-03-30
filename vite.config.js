@@ -27,7 +27,7 @@ export default defineConfig({
     port: 3001,
     proxy: {
       "/api": {
-        target: "http://localhost:3000/",
+        target: "https://cat-food-back-end.onrender.com/",
         changeOrigin: true,
       },
     }
